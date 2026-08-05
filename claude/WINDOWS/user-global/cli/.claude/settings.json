@@ -6,6 +6,35 @@
   "showTurnDuration": true,
   "deaultShell": "powershell",
   "worktree.baseRef": "head",
+    "hooks": {
+    "SessionStart": [
+      {
+        "hooks": []
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "& \"C:/Users/<username>/.claude/hooks/worktree-create.ps1\""
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "& \"C:/Users/<username>/.claude/hooks/worktree-remove.ps1\""
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "pwsh -NoProfile -NoLogo -File C:/Users/<username>/.claude/statusline.ps1"
