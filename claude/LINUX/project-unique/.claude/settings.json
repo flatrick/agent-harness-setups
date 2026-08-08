@@ -1,0 +1,42 @@
+{
+  "defaultShell": "bash",
+  "showThinkingSummaries": true,
+  "showTurnDuration": true,
+  "worktree.baseRef": "head",
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-create.py\""
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-remove.py\""
+          }
+        ]
+      }
+    ]
+  },
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "verbose": true,
+  "preferredNotifChannel": "auto"
+}
