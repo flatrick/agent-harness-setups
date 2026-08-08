@@ -5,13 +5,10 @@
   "showThinkingSummaries": true,
   "showTurnDuration": true,
   "defaultShell": "bash",
-  "worktree.baseRef": "head",
+  "worktree": {
+    "baseRef": "head"
+  },
     "hooks": {
-    "SessionStart": [
-      {
-        "hooks": []
-      }
-    ],
     "WorktreeCreate": [
       {
         "hooks": [

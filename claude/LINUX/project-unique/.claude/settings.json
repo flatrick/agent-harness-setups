@@ -2,7 +2,6 @@
   "defaultShell": "bash",
   "showThinkingSummaries": true,
   "showTurnDuration": true,
-  "worktree.baseRef": "head",
   "permissions": {
     "defaultMode": "auto"
   },
@@ -31,7 +30,7 @@
     ]
   },
   "worktree": {
-    "baseRef": "fresh"
+    "baseRef": "head"
   },
   "verbose": true,
   "preferredNotifChannel": "auto"
