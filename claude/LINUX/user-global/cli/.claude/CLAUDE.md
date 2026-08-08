@@ -52,7 +52,7 @@ Hard rule: 2+ questions → `AskUserQuestion`. No exceptions.
 2. Run the tests.
 3. Read the last ~20 lines out of the log file and paste them.
 
-- **Never pipe a command through `tail`, `head`, or `Select-Object -First`.**
+- **Never pipe a command through `tail` or `head`.**
   - Piping throws away the output, and the error is nearly always above the tail.
   - Recovering it then costs a whole extra build/test cycle — this has wasted real time.
 - **Redirect the full output to a log file instead.**
