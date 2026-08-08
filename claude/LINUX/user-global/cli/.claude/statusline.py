@@ -42,10 +42,13 @@ def format_token_count(n):
 
 
 def run_git(cwd, *args):
-    result = subprocess.run(
-        ["git", "-C", cwd, "--no-optional-locks", *args],
-        capture_output=True, text=True,
-    )
+    try:
+        result = subprocess.run(
+            ["git", "-C", cwd, "--no-optional-locks", *args],
+            capture_output=True, text=True,
+        )
+    except (FileNotFoundError, OSError):
+        return None
     return result.stdout.strip() if result.returncode == 0 else None
 
 
