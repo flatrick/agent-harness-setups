@@ -5,13 +5,10 @@
   "showThinkingSummaries": true,
   "showTurnDuration": true,
   "deaultShell": "powershell",
-  "worktree.baseRef": "head",
+  "worktree": {
+    "baseRef": "head"
+  },
     "hooks": {
-    "SessionStart": [
-      {
-        "hooks": []
-      }
-    ],
     "WorktreeCreate": [
       {
         "hooks": [

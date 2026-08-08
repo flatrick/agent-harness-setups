@@ -68,7 +68,6 @@ Hard rule: 2+ questions → `AskUserQuestion`. No exceptions.
   The full run is already on disk — `rg` it.
 - **Keep every log. Prune only for disk space.**
   - Delete oldest-first when `.scratch/` exceeds 500 MB, or when its drive has under 5 GB free.
-  - `D:` runs tight (~12 GB free), so this will actually trigger there.
   - `.scratch/` logs are the one thing you may delete without asking.
 - If a step was skipped or blocked, say so plainly.
   Leave the item unchecked rather than marking it done with caveats.
