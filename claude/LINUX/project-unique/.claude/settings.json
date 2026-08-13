@@ -1,5 +1,5 @@
 {
-  "defaultShell": "powershell",
+  "defaultShell": "bash",
   "showThinkingSummaries": true,
   "showTurnDuration": true,
   "permissions": {
@@ -11,8 +11,8 @@
         "hooks": [
           {
             "type": "command",
-            "shell": "powershell",
-            "command": "& \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-create.ps1\""
+            "shell": "bash",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-create.py\""
           }
         ]
       }
@@ -22,8 +22,8 @@
         "hooks": [
           {
             "type": "command",
-            "shell": "powershell",
-            "command": "& \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-remove.ps1\""
+            "shell": "bash",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/worktree-remove.py\""
           }
         ]
       }
@@ -31,10 +31,6 @@
   },
   "worktree": {
     "baseRef": "head"
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash C:/Users/PatrikMattsson/.claude/statusline-command.sh"
   },
   "verbose": true,
   "preferredNotifChannel": "auto"

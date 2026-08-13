@@ -52,18 +52,18 @@ Hard rule: 2+ questions → `AskUserQuestion`. No exceptions.
 2. Run the tests.
 3. Read the last ~20 lines out of the log file and paste them.
 
-- **Never pipe a command through `tail`, `head`, or `Select-Object -First`.**
+- **Never pipe a command through `tail` or `head`.**
   - Piping throws away the output, and the error is nearly always above the tail.
   - Recovering it then costs a whole extra build/test cycle — this has wasted real time.
 - **Redirect the full output to a log file instead.**
-  - PowerShell: `<command> *> .scratch/<name>-<timestamp>.log` — `*>` captures stdout *and* stderr.
+  - Bash: `<command> &> .scratch/<name>-<timestamp>.log` — `&>` captures stdout *and* stderr.
   - `.scratch/` sits at the repo root and must be gitignored.
     Confirm it once per repo with `git check-ignore -q .scratch/probe.log` — probe a path
     *inside* the folder, because a `.scratch/` pattern won't match the bare directory name
     while the directory is still absent.
     Not ignored? Say so before writing there.
   - Name files `<what>-<yyyyMMdd-HHmm>.log`, e.g. `build-20260805-1432.log`.
-    Timestamp with `Get-Date -Format yyyyMMdd-HHmm`.
+    Timestamp with `` `date +%Y%m%d-%H%M` ``.
 - **Something failed? Search the log file. Never re-run a command to see output you already produced.**
   The full run is already on disk — `rg` it.
 - **Keep every log. Prune only for disk space.**
@@ -74,18 +74,17 @@ Hard rule: 2+ questions → `AskUserQuestion`. No exceptions.
 
 ## Environment
 
-- Windows. When writing a script, pick in this order:
-  1. **Single-file C#** (.NET 10 file-based apps) — preferred: one less language to know.
+- Linux. When writing a script, pick in this order:
+  1. **Python** — default for anything with real logic or data handling.
+  2. **Bash** — pure shell-glue and one-liners only; reach for Python once there's real logic (branching beyond a couple of conditions, data structures, string parsing).
+  3. **Single-file C#** (.NET 10 file-based apps) — for tasks tied to the dotnet-mcp/dotnet-knowledge MCP servers or an actual .NET codebase.
      Configure inline with `#:package`, `#:property`, `#:project`.
      **Always invoke as `dotnet run --file script.cs`.**
      Never the bare `dotnet run script.cs` or `dotnet script.cs` — without `--file`, a directory that holds a project file runs *the project* and passes the filename as an argument.
      `--file` is unambiguous everywhere, so use it every time, no exceptions.
-  2. **PowerShell** — when a program would be overkill or the task is genuinely shell-shaped.
-  3. Nothing else. **Never CMD or BAT.**
-- No `.sh`/bash scripts unless git itself requires it (hooks, git-provided tooling).
 - **Scope of the above.**
-  - It governs *new* scripts. Existing `.ps1` tooling stays as it is; don't migrate it unless I ask.
-  - One-off commands aren't scripts — just run them in PowerShell.
+  - It governs *new* scripts. Existing tooling stays as it is; don't migrate it unless I ask.
+  - One-off commands aren't scripts — just run them directly in bash.
 - Microsoft/.NET APIs: verify signatures and behavior with the Microsoft Learn MCP.
   Do not answer from memory — you have been wrong about this before.
 - C#/VB.NET symbol lookup, call sites, type hierarchies: prefer dotnet-mcp over text search.

@@ -4,7 +4,7 @@
   },
   "showThinkingSummaries": true,
   "showTurnDuration": true,
-  "deaultShell": "powershell",
+  "defaultShell": "bash",
   "worktree": {
     "baseRef": "head"
   },
@@ -14,8 +14,8 @@
         "hooks": [
           {
             "type": "command",
-            "shell": "powershell",
-            "command": "& \"C:/Users/<username>/.claude/hooks/worktree-create.ps1\""
+            "shell": "bash",
+            "command": "python3 ~/.claude/hooks/worktree-create.py"
           }
         ]
       }
@@ -25,8 +25,8 @@
         "hooks": [
           {
             "type": "command",
-            "shell": "powershell",
-            "command": "& \"C:/Users/<username>/.claude/hooks/worktree-remove.ps1\""
+            "shell": "bash",
+            "command": "python3 ~/.claude/hooks/worktree-remove.py"
           }
         ]
       }
@@ -34,7 +34,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "pwsh -NoProfile -NoLogo -File C:/Users/<username>/.claude/statusline.ps1"
+    "command": "python3 ~/.claude/statusline.py"
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
