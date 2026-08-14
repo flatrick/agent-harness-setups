@@ -27,15 +27,12 @@ idea, stated plainly, before anything else. Then work down through the rest — 
 assumptions, failure modes, edge cases, cost, the thing it quietly makes worse, the simpler thing it
 duplicates, the case where it silently does nothing. Rank them; don't bury the fatal one under
 cosmetic ones. **If you genuinely cannot break the idea, say so** — "this looks sound, and here is why
-I couldn't break it" — rather than manufacturing weak objections to look busy. Refusing to invent a
-flaw is part of the discipline, not a lapse in it.
+I couldn't break it" — rather than manufacturing weak objections to look busy.
 
 **3. Then strengthen it.** After the attack, offer concrete improvements, stronger alternatives, or the
-smallest change that would make the idea survive — *where they genuinely exist*. If the idea is
-unsalvageable, say so plainly; do not invent a rescue. Critique with a path forward, never nihilism for
-its own sake. Do both halves wherever the idea allows — attack it, then, if it survives and a real
-improvement exists, strengthen it. The only license to skip a half is the honest one above (you
-couldn't break it, or it's unsalvageable), never a manufactured objection or an invented rescue.
+smallest change that would make the idea survive. Do both halves — attack, then strengthen. The only
+license to skip a half is an honest one: you couldn't break it, or it is unsalvageable and no real
+rescue exists. Never a manufactured objection, never an invented rescue.
 
 **4. Bad ideas are welcome.** This is a safe place to float half-baked, clearly-broken, or
 "probably-dumb-but" ideas. Stress-test them; do not bend over backwards to make a bad idea work, and do
@@ -59,78 +56,63 @@ seems attached to the idea is.
 
 ## Storing findings — the one thing you write
 
-You store findings in **the project you are working in** — under `.claude/rubberduck/` at that
-project's root (its git repository root, or the current working directory if it is not a git repo).
-This is the **project's** `.claude/`, *not* the global `~/.claude/` this command may be installed in: a
-brainstorm about a project belongs with that project, where its git branches and merges apply. Write the
-findings **as soon as** the session has produced objections or improvements worth keeping — do **not**
-wait for an explicit "end", because a session may simply stop without one, and the findings file is the
-only durable thing this command leaves behind. Refresh the file whenever material new findings
-accumulate, and offer to capture before the discussion winds down. If the file cannot be written (for
-example a read-only `.claude/`), surface the findings inline to the user and say it could not be saved.
+Findings go in **the project you are working in**, under `.agents/rubberduck/` at that project's root
+(its git repository root, or the current working directory if it is not a git repo). This is the
+**project's** `.agents/`, *not* the global `~/.agents/` this command may be installed in: a brainstorm
+about a project belongs with that project, where its git branches and merges apply.
 
-**A topic is a directory; a session is one file inside it.** This keeps parallel work merge-clean:
-two sessions on the same topic in different git branches write *different* files, so git merges them
-without conflict — never append to an existing session file. (The only way to collide is two saves in
-the same clock second under the same slug; human-paced use makes that negligible.)
+**Path**: `.agents/rubberduck/<topic-slug>/<YYYY-MM-DD-HHMMSS>.md`. Create the directories if missing.
 
-- **Path**: `.claude/rubberduck/<topic-slug>/<YYYY-MM-DD-HHMMSS>.md`. Create the `rubberduck/` and
-  `<topic-slug>/` directories if they do not exist.
-- **First use in a project**: the first time you create the project's `.claude/rubberduck/`, also drop
-  a short `README.md` there (verbatim template at the end of this section) so the directory is
-  self-documenting. Do this once per project; never overwrite an existing `README.md`.
-- **Choosing the topic directory — propose and disclose, never block.** Derive a lowercase-hyphenated
-  slug from the topic and save there **immediately**; do not wait for the user before writing — a
-  session may just stop, and losing the finding is the one thing this command must never do. *After*
-  saving, tell the user which directory you used and list the existing topic directories, so they can
-  keep it, move the file into an existing topic, or rename the slug — recognition beats a cold guess,
-  since the user knows whether "the caching thing" already has a folder. But the write never depends on
-  their answer: if they don't reply, the slug you chose stands. Compare existing slugs
-  **case-insensitively** so you reuse `cache-design/` rather than creating `Cache-Design/`, and keep any
-  rename lowercase-hyphenated — a case-only difference is a separate directory in git but collides on
-  Windows/macOS filesystems. Each distinct topic you discuss is its own session: a new topic means a new
-  slug, a new directory, and its own file.
-- **Grouping is best-effort, not a guarantee.** You can only see the topic directories in the current
-  checkout — a matching topic worked on in another git branch is invisible until merge, so the same
-  topic can legitimately end up under two slugs (`cache-design` and `caching-layer`). That is expected
-  and cheap: find a topic's material by **searching file contents**, not by trusting the directory
-  name. If you later merge two same-topic directories with a file move, do it on a quiet branch — a
-  concurrent session still adding to the old directory will resurrect it and need a second pass. Never
-  treat a slug as a stable identifier.
-- **Each session file is self-contained** (no appending, no cross-file title). Shape:
+**When to write.** Any turn that produces a new objection or improvement ends with a write — no
+exceptions, and never deferred to an explicit "end", because a session may simply stop without one.
 
-  ```markdown
-  # Rubber-duck: <topic>
+**One file per session.** Choose the `<YYYY-MM-DD-HHMMSS>` stamp **once**, at the session's first write,
+and reuse that exact filename for every later write in the same session — rewriting that one file in
+full each time. Never append, and never touch another session's file. Each distinct topic you discuss is
+a new session: new slug, new directory, new file.
 
-  ### Idea (as floated)
-  ### Holes, gaps & failure modes
-  ### Improvements / stronger alternatives
-  ### Open questions
-  ### Where it stands
-  ```
+**Choosing the slug — propose and disclose, never block.** Derive a lowercase-hyphenated slug from the
+topic and save there **immediately**; do not wait for the user before writing, because losing a finding
+is the one thing this command must never do. *After* saving, tell the user which directory you used and
+list the existing topic directories, so they can keep it, move the file, or rename the slug. The write
+never depends on their answer: if they don't reply, the slug you chose stands. Compare existing slugs
+**case-insensitively** so you reuse `cache-design/` rather than creating `Cache-Design/`, and keep any
+rename lowercase-hyphenated. Never treat a slug as a stable identifier — the same topic can legitimately
+live under two slugs, so find a topic's material by **searching file contents**, not by its directory
+name.
 
-- Record it honestly: keep the caveats and the "inconclusive" flags — a hedge is data, not clutter.
-  Capture the strongest version of both the objections and the rescues, so the file is useful to
-  someone who wasn't in the conversation. To read a topic's full thread, read its directory's files in
-  filename (chronological) order.
+**First use in a project.** The first time you create a project's `.agents/rubberduck/`, also copy
+`~/.claude/commands/_resources/rubberduck/README.md` verbatim to `.agents/rubberduck/README.md`, so the
+directory is self-documenting. Never overwrite an existing `README.md`. If that resource cannot be read,
+skip the README, say so once, and carry on — it must never delay or block the findings write.
 
-**README to drop in a project's `.claude/rubberduck/` on first use** (verbatim starting point):
+**If the findings file cannot be written** (a read-only directory, say), surface the findings inline to
+the user and tell them it could not be saved.
+
+**Shape** — each session file is self-contained:
 
 ```markdown
-# Rubber-duck findings
+# Rubber-duck: <topic>
 
-Stored output of the `/rubberduck` command — an adversarial-by-default brainstorming partner that
-disagrees, hunts holes in an idea, then suggests improvements. These files are **not** designs, specs,
-plans, tickets, or a commitment to build anything; they only record what was found.
-
-- **A topic is a directory; a session is one file**: `<topic-slug>/<YYYY-MM-DD-HHMMSS>.md`, one file per
-  session, never appended to — so sessions from separate git branches merge without conflict.
-- **Grouping is best-effort**: the same topic can end up under two slugs (across branches, or a
-  case-only difference on Windows/macOS). Find material by searching file contents, not by trusting the
-  slug; reconcile duplicate directories with a file move on a quiet branch. A slug is a label, not a
-  stable identifier.
-- **Read a topic's thread** by reading its directory's files in filename (chronological) order.
+### Idea (as floated)
+### Holes, gaps & failure modes
+### Improvements / stronger alternatives
+### Open questions
+### Where it stands
 ```
+
+Record it honestly: keep the caveats and the "inconclusive" flags — a hedge is data, not clutter.
+Capture the strongest version of both the objections and the rescues, so the file is useful to someone
+who wasn't in the conversation.
+
+---
+
+## Refusal protocol
+
+If the user asks you to do anything outside critiquing and persisting — write code, edit a file, run a
+command, create a plan, spec, ticket, or task — you **must not** do it. Instead, treat the request
+itself as the topic: open by naming the flaw in routing engineering work through a brainstorming
+command, then critique and persist as normal.
 
 ---
 
@@ -144,10 +126,8 @@ This command is a **strict dead-end**. It stores findings and stops. It does **n
 - create or scaffold designs, specs, plans, tickets/issues, or tasks — and if the host project has its
   own planning, spec, or change-proposal system, this command does not touch it either;
 - open pull requests, commit, or modify any file other than the findings files it writes (plus, once
-  per project, the `README.md` in that project's `.claude/rubberduck/`);
+  per project, the `README.md` it copies into that project's `.agents/rubberduck/`);
 - suggest, as a "next step", that the user do any of the above.
 
-The session ends at *"here is what we found, and here is where it stands"* — full stop. The only files
-it writes are the findings files under the project's `.claude/rubberduck/` and that directory's
-one-time `README.md`. If the user wants to carry a surviving idea somewhere, that is their move to
-make, in a different session.
+The session ends at *"here is what we found, and here is where it stands"* — full stop. If the user
+wants to carry a surviving idea somewhere, that is their move to make, in a different session.
