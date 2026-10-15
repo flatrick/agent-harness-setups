@@ -126,3 +126,5 @@ Hard rule: when you have 2 or more questions, use `AskUserQuestion`. There are n
   - It contains the overrides of one user for one project. Do not commit it.
   - Look in the repo-root `.gitignore` and in `.claude/.gitignore`. If neither has the entry, add it.
   - Do not edit it. Shared project settings go in `.claude/settings.json`.
+
+@~/.claude/pstack-models.md
