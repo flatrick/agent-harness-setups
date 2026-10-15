@@ -4,7 +4,7 @@
   },
   "showThinkingSummaries": true,
   "showTurnDuration": true,
-  "deaultShell": "powershell",
+  "defaultShell": "powershell",
   "worktree": {
     "baseRef": "head"
   },
