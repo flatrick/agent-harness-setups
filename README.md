@@ -1,6 +1,7 @@
 # flatrick's agent-harness configs
 
-This repo is merely meant to hold my setups for the different agent harnesses I use (both frequently and rarely).
+This repo contains my general guidelines and settings for each agent harness that I use, for each platform (Linux and Windows).
+My skills are in a different repo: [flatrick/agent-skills](https://github.com/flatrick/agent-skills).
 
 I hope this will help others by serving as inspiration on how to tweak their own setups.
 
